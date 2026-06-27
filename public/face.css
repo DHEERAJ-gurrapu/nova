@@ -1,0 +1,809 @@
+/* ==========================================
+   NOVA OS v1.0
+   Part 1
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:#04070d;
+
+    overflow:hidden;
+
+    font-family:'Orbitron',sans-serif;
+
+    color:#9fefff;
+
+    height:100vh;
+
+}
+
+/* ---------------- Background ---------------- */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at center,#0d2748 0%,#04070d 65%,#000 100%);
+
+}
+
+/* Small glowing stars */
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+        radial-gradient(#00d9ff 1px,transparent 1px),
+
+        radial-gradient(#00d9ff 1px,transparent 1px),
+
+        radial-gradient(#00d9ff 2px,transparent 2px);
+
+    background-size:
+
+        160px 160px,
+
+        240px 240px,
+
+        420px 420px;
+
+    opacity:.18;
+
+    animation:starsMove 50s linear infinite;
+
+}
+
+/* HUD */
+
+.hud{
+
+    width:100vw;
+
+    height:100vh;
+
+    position:relative;
+
+}
+
+/* ---------------- Logo ---------------- */
+
+.logo{
+
+    position:absolute;
+
+    left:40px;
+
+    top:30px;
+
+    color:#00d9ff;
+
+    text-shadow:
+
+    0 0 12px #00d9ff,
+
+    0 0 30px #00d9ff;
+
+}
+
+.logo h2{
+
+    font-size:28px;
+
+    letter-spacing:4px;
+
+}
+
+.logo p{
+
+    opacity:.6;
+
+    margin-top:6px;
+
+    font-size:13px;
+
+}
+
+/* ---------------- Clock ---------------- */
+
+.clock{
+
+    position:absolute;
+
+    top:30px;
+
+    right:40px;
+
+    text-align:right;
+
+    color:#8fefff;
+
+}
+
+#time{
+
+    font-size:34px;
+
+    text-shadow:
+
+    0 0 10px cyan;
+
+}
+
+#date{
+
+    margin-top:5px;
+
+    font-size:14px;
+
+    opacity:.7;
+
+}
+
+/* ---------------- Left Panel ---------------- */
+
+.left-panel{
+
+    position:absolute;
+
+    left:40px;
+
+    top:160px;
+
+    width:220px;
+
+    border:1px solid rgba(0,255,255,.25);
+
+    border-radius:15px;
+
+    padding:20px;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+
+    0 0 25px rgba(0,255,255,.15);
+
+}
+
+.left-panel h3{
+
+    color:#00eaff;
+
+    margin-bottom:18px;
+
+    letter-spacing:2px;
+
+}
+
+.left-panel .item{
+
+    margin:16px 0;
+
+    color:#bafcff;
+
+    font-size:14px;
+
+}
+
+.online{
+
+    color:#7CFF7C !important;
+
+}
+
+/* ---------------- Right Panel ---------------- */
+
+.right-panel{
+
+    position:absolute;
+
+    right:40px;
+
+    top:160px;
+
+    width:220px;
+
+    border:1px solid rgba(0,255,255,.25);
+
+    border-radius:15px;
+
+    padding:20px;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+
+    0 0 25px rgba(0,255,255,.15);
+
+}
+
+.right-panel h3{
+
+    color:#00eaff;
+
+    margin-bottom:18px;
+
+    letter-spacing:2px;
+
+}
+
+#status{
+
+    color:#9ffcff;
+
+    font-size:20px;
+
+    letter-spacing:4px;
+
+    text-shadow:
+
+    0 0 12px cyan;
+
+}
+
+/* ---------------- Center ---------------- */
+
+.center{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:700px;
+
+    height:700px;
+
+}
+
+/* Nova */
+
+.nova{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    font-family:'Sacramento',cursive;
+
+    font-size:95px;
+
+    color:#bffcff;
+
+    text-shadow:
+
+        0 0 10px #00eaff,
+
+        0 0 25px #00eaff,
+
+        0 0 60px #00eaff;
+
+    z-index:5;
+
+}
+
+/* ---------------- Rings ---------------- */
+
+.ring{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    border:2px solid rgba(0,255,255,.25);
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    box-shadow:
+
+        0 0 20px rgba(0,255,255,.2);
+
+}
+
+.ring1{
+
+    width:180px;
+
+    height:180px;
+
+    animation:rotate1 12s linear infinite;
+
+}
+
+.ring2{
+
+    width:270px;
+
+    height:270px;
+
+    animation:rotate2 18s linear infinite reverse;
+
+}
+
+.ring3{
+
+    width:370px;
+
+    height:370px;
+
+    animation:rotate1 25s linear infinite;
+
+}
+
+.ring4{
+
+    width:500px;
+
+    height:500px;
+
+    animation:rotate2 40s linear infinite reverse;
+
+}
+
+.ring5{
+
+    width:620px;
+
+    height:620px;
+
+    animation:rotate1 60s linear infinite;
+
+}
+
+/* ---------------- Animations ---------------- */
+
+@keyframes rotate1{
+
+    from{
+
+        transform:translate(-50%,-50%) rotate(0deg);
+
+    }
+
+    to{
+
+        transform:translate(-50%,-50%) rotate(360deg);
+
+    }
+
+}
+
+@keyframes rotate2{
+
+    from{
+
+        transform:translate(-50%,-50%) rotate(360deg);
+
+    }
+
+    to{
+
+        transform:translate(-50%,-50%) rotate(0deg);
+
+    }
+
+}
+
+@keyframes starsMove{
+
+    from{
+
+        transform:translateY(0);
+
+    }
+
+    to{
+
+        transform:translateY(-300px);
+
+    }
+
+}/* ==========================================
+   NOVA OS v1.0
+   Part 2
+========================================== */
+
+/* ---------- Equalizer ---------- */
+
+.equalizer{
+
+    position:absolute;
+
+    left:50px;
+
+    bottom:40px;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:8px;
+
+    height:80px;
+
+}
+
+.equalizer span{
+
+    width:8px;
+
+    background:#00d9ff;
+
+    border-radius:20px;
+
+    box-shadow:
+    0 0 10px cyan,
+    0 0 25px cyan;
+
+    animation:equalizer 1.2s infinite ease-in-out;
+
+}
+
+.equalizer span:nth-child(1){height:20px;animation-delay:.1s;}
+.equalizer span:nth-child(2){height:60px;animation-delay:.4s;}
+.equalizer span:nth-child(3){height:35px;animation-delay:.2s;}
+.equalizer span:nth-child(4){height:70px;animation-delay:.7s;}
+.equalizer span:nth-child(5){height:30px;animation-delay:.5s;}
+.equalizer span:nth-child(6){height:55px;animation-delay:.9s;}
+.equalizer span:nth-child(7){height:25px;animation-delay:.6s;}
+.equalizer span:nth-child(8){height:65px;animation-delay:.3s;}
+.equalizer span:nth-child(9){height:40px;animation-delay:.8s;}
+.equalizer span:nth-child(10){height:50px;animation-delay:.15s;}
+
+/* ---------- Power ---------- */
+
+.power{
+
+    position:absolute;
+
+    right:40px;
+
+    bottom:40px;
+
+    width:240px;
+
+    padding:20px;
+
+    border:1px solid rgba(0,255,255,.25);
+
+    border-radius:15px;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+    0 0 20px rgba(0,255,255,.15);
+
+}
+
+.power h1{
+
+    font-size:42px;
+
+    margin:15px 0;
+
+    color:#bffcff;
+
+    text-shadow:0 0 12px cyan;
+
+}
+
+.power-bar{
+
+    width:100%;
+
+    height:10px;
+
+    border-radius:10px;
+
+    background:rgba(255,255,255,.08);
+
+    overflow:hidden;
+
+}
+
+.fill{
+
+    width:100%;
+
+    height:100%;
+
+    background:linear-gradient(90deg,#00d9ff,#00ffff);
+
+    box-shadow:
+    0 0 15px cyan;
+
+}
+
+/* ---------- Rings Glow ---------- */
+
+.ring::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:50%;
+
+    box-shadow:
+    0 0 30px rgba(0,255,255,.25);
+
+}
+
+/* ---------- Listening ---------- */
+
+body.listening .ring{
+
+    border-color:#00ffb3;
+
+    box-shadow:
+    0 0 20px #00ffb3,
+    0 0 60px rgba(0,255,179,.5);
+
+}
+
+body.listening .nova{
+
+    text-shadow:
+    0 0 15px #00ffb3,
+    0 0 40px #00ffb3,
+    0 0 90px #00ffb3;
+
+}
+
+/* ---------- Thinking ---------- */
+
+body.thinking .ring{
+
+    animation-duration:4s !important;
+
+}
+
+body.thinking .nova{
+
+    animation:thinkingPulse .8s infinite alternate;
+
+}
+
+/* ---------- Speaking ---------- */
+
+body.speaking .ring{
+
+    animation:speakingPulse 1s infinite;
+
+}
+
+body.speaking .nova{
+
+    animation:speakingGlow .45s infinite alternate;
+
+}
+
+/* ---------- Idle ---------- */
+
+body.idle .ring{
+
+    opacity:.75;
+
+}
+
+/* ---------- Floating HUD ---------- */
+
+.left-panel,
+.right-panel,
+.power{
+
+    animation:floatPanel 6s ease-in-out infinite;
+
+}
+
+.logo{
+
+    animation:floatLogo 8s ease-in-out infinite;
+
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes equalizer{
+
+    0%{
+        transform:scaleY(.3);
+    }
+
+    50%{
+        transform:scaleY(1.4);
+    }
+
+    100%{
+        transform:scaleY(.4);
+    }
+
+}
+
+@keyframes speakingPulse{
+
+    0%{
+
+        transform:translate(-50%,-50%) scale(1);
+
+    }
+
+    50%{
+
+        transform:translate(-50%,-50%) scale(1.03);
+
+    }
+
+    100%{
+
+        transform:translate(-50%,-50%) scale(1);
+
+    }
+
+}
+
+@keyframes speakingGlow{
+
+    from{
+
+        transform:translate(-50%,-50%) scale(1);
+
+        opacity:.9;
+
+    }
+
+    to{
+
+        transform:translate(-50%,-50%) scale(1.08);
+
+        opacity:1;
+
+    }
+
+}
+
+@keyframes thinkingPulse{
+
+    from{
+
+        opacity:.6;
+
+        transform:translate(-50%,-50%) scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translate(-50%,-50%) scale(1.05);
+
+    }
+
+}
+
+@keyframes floatPanel{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+@keyframes floatLogo{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-5px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* ---------- Responsive ---------- */
+
+@media(max-width:1100px){
+
+    .center{
+
+        width:500px;
+        height:500px;
+
+    }
+
+    .ring5{
+
+        width:470px;
+        height:470px;
+
+    }
+
+    .ring4{
+
+        width:390px;
+        height:390px;
+
+    }
+
+    .ring3{
+
+        width:300px;
+        height:300px;
+
+    }
+
+    .ring2{
+
+        width:220px;
+        height:220px;
+
+    }
+
+    .ring1{
+
+        width:150px;
+        height:150px;
+
+    }
+
+    .nova{
+
+        font-size:70px;
+
+    }
+
+}
