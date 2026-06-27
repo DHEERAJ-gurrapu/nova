@@ -26,16 +26,16 @@ console.log("=================================");
 console.log("Project Folder:", __dirname);
 console.log(
     "Face Exists:",
-    fs.existsSync(path.join(__dirname, "public", "face.html"))
+    fs.existsSync(path.join(__dirname, "public", "index.html"))
 );
 console.log("=================================");
 
-// ----------------------------
+// ----------------------------s
 // Home Page
 // ----------------------------
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "face.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // ----------------------------
